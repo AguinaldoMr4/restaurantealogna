@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="pt-AO">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alogna — Restaurante na Baía de Luanda</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+
+  /* ---------- Tokens ---------- */
+  :root{
+    --ink: #21261d;
+    --ink-soft: #3a4030;
+    --paper: #f3efe2;
+    --paper-dim: #ece5d2;
+    --olive: #5c6a3f;
+    --olive-deep: #454f2e;
+    --rust: #ac5227;
+    --rust-deep: #8a4019;
+    --gold: #b99048;
+    --white: #fffcf5;
+    --line: rgba(33,38,29,0.16);
+
+    --display: "Fraunces", Georgia, serif;
+    --body: "Work Sans", -apple-system, sans-serif;
+
+    --wrap: 1180px;
+  }
+
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--body);
+    font-weight:400;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  img{ max-width:100%; display:block; }
+  a{ color:inherit; text-decoration:none; }
+  ul{ margin:0; padding:0; list-style:none; }
+  h1,h2,h3,h4{ font-family:var(--display); font-weight:500; margin:0; }
+  .wrap{ max-width:var(--wrap); margin:0 auto; padding:0 32px; }
+
+  :focus-visible{ outline:2px solid var(--rust); outline-offset:3px; }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:0.001ms !important; transition-duration:0.001ms !important; }
+  }
+
+  /* ---------- Nav ---------- */
+  .nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(243,239,226,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav .wrap{
+    display:flex; align-items:center; justify-content:space-between;
+    height:82px;
+  }
+  .nav-mark{
+    font-family:var(--display); font-size:26px; font-weight:600;
+    letter-spacing:0.01em;
+  }
+  .nav-mark span{ color:var(--rust); }
+  .nav-links{ display:flex; align-items:center; gap:36px; }
+  .nav-links a{
+    font-size:15px; color:var(--ink-soft);
+    position:relative; padding:4px 0;
+  }
+  .nav-links a:hover{ color:var(--ink); }
+  .nav-cta{
+    border:1px solid var(--ink);
+    padding:10px 22px; border-radius:2px;
+    font-size:14px; white-space:nowrap;
+    transition:background 0.2s ease, color 0.2s ease;
+  }
+  .nav-cta:hover{ background:var(--ink); color:var(--white); }
+  .nav-toggle{ display:none; }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    display:grid; grid-template-columns:1.1fr 0.9fr;
+    align-items:center;
+    gap:40px;
+    padding:64px 0 40px;
+    overflow:hidden;
+  }
+  .hero-copy .kicker{
+    font-size:15px; color:var(--olive-deep); margin:0 0 18px;
+    font-style:italic; font-family:var(--display); font-size:19px;
+  }
+  .hero-copy h1{
+    font-size:clamp(42px, 6vw, 74px);
+    line-height:0.98;
+    letter-spacing:-0.01em;
+    max-width:11ch;
+  }
+  .hero-copy p.lede{
+    margin:26px 0 34px;
+    max-width:46ch;
+    font-size:17px;
+    color:var(--ink-soft);
+  }
+  .hero-actions{ display:flex; gap:16px; flex-wrap:wrap; }
+  .btn{
+    display:inline-block;
+    padding:14px 28px;
+    font-size:14.5px;
+    border-radius:2px;
+    border:1px solid transparent;
+    cursor:pointer;
+  }
+  .btn-primary{ background:var(--rust); color:var(--white); }
+  .btn-primary:hover{ background:var(--rust-deep); }
+  .btn-ghost{ border-color:var(--ink); color:var(--ink); }
+  .btn-ghost:hover{ background:var(--ink); color:var(--white); }
+
+  .hero-art{ position:relative; }
+  .hero-art svg{ width:100%; height:auto; }
+
+  /* ---------- Intro / hours band ---------- */
+  .band{ border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+  .intro{
+    display:grid; grid-template-columns:1.3fr 1fr;
+    gap:70px;
+    padding:76px 0;
+  }
+  .intro h2{ font-size:32px; max-width:14ch; margin-bottom:22px; }
+  .intro p{ max-width:52ch; color:var(--ink-soft); font-size:16.5px; }
+  .intro-loc{
+    margin-top:24px; font-size:14.5px; color:var(--olive-deep);
+    display:flex; align-items:center; gap:8px;
+  }
+
+  .hours{ border-left:1px solid var(--line); padding-left:48px; }
+  .hours-row{
+    display:flex; justify-content:space-between; gap:16px;
+    padding:16px 0; border-bottom:1px solid var(--line);
+  }
+  .hours-row:first-child{ padding-top:0; }
+  .hours-row:last-child{ border-bottom:none; }
+  .hours-row .label{ font-family:var(--display); font-size:19px; }
+  .hours-row .time{ text-align:right; color:var(--ink-soft); font-size:14.5px; }
+  .hours-row .time small{ display:block; color:var(--olive-deep); font-size:12.5px; margin-top:2px; }
+
+  /* ---------- Menu ---------- */
+  .menu{ padding:88px 0 40px; }
+  .menu-head{
+    display:flex; justify-content:space-between; align-items:flex-end;
+    gap:24px; margin-bottom:56px; flex-wrap:wrap;
+  }
+  .menu-head h2{ font-size:38px; }
+  .menu-head p{ max-width:36ch; color:var(--ink-soft); font-size:15px; margin:0; }
+
+  .menu-grid{
+    display:grid; grid-template-columns:repeat(2, 1fr);
+    gap:0 64px;
+  }
+  .menu-cat{ padding-bottom:52px; }
+  .menu-cat-title{
+    display:flex; align-items:center; gap:14px;
+    font-size:22px; margin-bottom:6px; color:var(--rust-deep);
+  }
+  .menu-cat-title svg{ width:20px; height:20px; flex:none; }
+  .menu-cat-note{
+    font-size:13px; color:var(--olive-deep); margin:0 0 20px;
+    font-style:italic;
+  }
+  .dish{
+    display:flex; gap:14px; padding:16px 0;
+    border-top:1px solid var(--line);
+  }
+  .dish:last-child{ }
+  .dish-name{
+    font-family:var(--display); font-size:17.5px; flex:1;
+    display:flex; align-items:baseline; gap:8px; flex-wrap:wrap;
+  }
+  .dish-desc{
+    display:block; width:100%; font-family:var(--body);
+    font-size:13.5px; color:var(--ink-soft); font-weight:400; margin-top:4px;
+  }
+  .dish-price{
+    font-size:15px; color:var(--rust-deep); white-space:nowrap; align-self:flex-start;
+    font-variant-numeric:tabular-nums;
+  }
+  .menu-legend{
+    margin-top:8px; font-size:12.5px; color:var(--ink-soft);
+    border-top:1px solid var(--line); padding-top:24px;
+  }
+
+  /* ---------- Signature dishes (illustrated) ---------- */
+  .signature{ background:var(--ink); color:var(--paper); padding:88px 0; }
+  .signature-head{ display:flex; justify-content:space-between; align-items:flex-end; gap:24px; margin-bottom:48px; flex-wrap:wrap; }
+  .signature-head h2{ color:var(--white); font-size:34px; max-width:16ch; }
+  .signature-head p{ color:#cfd2c4; max-width:34ch; font-size:15px; }
+  .sig-grid{ display:grid; grid-template-columns:repeat(3, 1fr); gap:2px; background:rgba(255,255,255,0.1); }
+  .sig-card{ background:var(--ink); padding:38px 30px 30px; }
+  .sig-card svg{ width:56px; height:56px; margin-bottom:22px; }
+  .sig-card h3{ color:var(--white); font-size:19px; font-weight:500; margin-bottom:8px; }
+  .sig-card p{ color:#b9bcac; font-size:14px; margin:0; }
+
+  /* ---------- Private dining band ---------- */
+  .occasion{
+    background:var(--rust); color:var(--white);
+    padding:92px 0;
+  }
+  .occasion .wrap{
+    display:grid; grid-template-columns:1.2fr 0.8fr; gap:48px; align-items:center;
+  }
+  .occasion h2{ font-size:clamp(30px,4vw,44px); line-height:1.08; max-width:15ch; }
+  .occasion p{ margin:22px 0 30px; max-width:44ch; color:#f6e6da; font-size:16px; }
+  .occasion .btn-ghost{ border-color:var(--white); color:var(--white); }
+  .occasion .btn-ghost:hover{ background:var(--white); color:var(--rust); }
+  .occasion-figure{ border:1px solid rgba(255,255,255,0.35); padding:34px; }
+  .occasion-figure ul{ display:flex; flex-direction:column; gap:18px; }
+  .occasion-figure li{ display:flex; justify-content:space-between; font-size:14.5px; border-bottom:1px solid rgba(255,255,255,0.25); padding-bottom:16px; }
+  .occasion-figure li:last-child{ border-bottom:none; padding-bottom:0; }
+  .occasion-figure li b{ font-family:var(--display); font-weight:500; font-size:17px; display:block; }
+
+  /* ---------- Reservation ---------- */
+  .reserve{ padding:92px 0; }
+  .reserve .wrap{ display:grid; grid-template-columns:0.9fr 1.1fr; gap:64px; }
+  .reserve h2{ font-size:34px; max-width:12ch; margin-bottom:16px; }
+  .reserve p{ color:var(--ink-soft); max-width:38ch; font-size:15.5px; }
+  .reserve-contact{ margin-top:32px; font-size:15px; }
+  .reserve-contact div{ margin-bottom:10px; }
+  .reserve-contact .k{ color:var(--olive-deep); font-size:12.5px; display:block; }
+
+  .form-grid{ display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+  .field{ display:flex; flex-direction:column; gap:8px; }
+  .field.full{ grid-column:1 / -1; }
+  .field label{ font-size:13px; color:var(--ink-soft); }
+  .field input, .field select, .field textarea{
+    border:none; border-bottom:1px solid var(--ink);
+    background:transparent; padding:10px 2px; font-family:var(--body);
+    font-size:15px; color:var(--ink);
+  }
+  .field input:focus, .field select:focus, .field textarea:focus{ outline:none; border-bottom:2px solid var(--rust); }
+  .field textarea{ resize:vertical; min-height:70px; }
+  .form-submit{ margin-top:8px; }
+
+  /* ---------- Footer ---------- */
+  footer{ background:var(--olive-deep); color:#eef0e4; padding:64px 0 28px; }
+  .foot-grid{ display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:40px; padding-bottom:44px; border-bottom:1px solid rgba(255,255,255,0.16); }
+  .foot-mark{ font-family:var(--display); font-size:24px; color:var(--white); margin-bottom:14px; }
+  .foot-grid p{ color:#c7cbb8; font-size:14px; max-width:34ch; }
+  .foot-col h4{ color:var(--white); font-size:13.5px; font-weight:500; margin-bottom:16px; }
+  .foot-col ul{ display:flex; flex-direction:column; gap:10px; }
+  .foot-col a{ color:#c7cbb8; font-size:14px; }
+  .foot-col a:hover{ color:var(--white); }
+  .foot-bottom{ display:flex; justify-content:space-between; padding-top:24px; font-size:12.5px; color:#9aa088; flex-wrap:wrap; gap:10px; }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 900px){
+    .nav-links{ display:none; }
+    .hero{ grid-template-columns:1fr; padding-top:44px; }
+    .hero-art{ order:-1; max-width:340px; margin:0 auto; }
+    .intro{ grid-template-columns:1fr; gap:40px; padding:56px 0; }
+    .hours{ border-left:none; padding-left:0; border-top:1px solid var(--line); padding-top:32px; }
+    .menu-grid{ grid-template-columns:1fr; }
+    .sig-grid{ grid-template-columns:1fr; }
+    .occasion .wrap{ grid-template-columns:1fr; }
+    .reserve .wrap{ grid-template-columns:1fr; gap:40px; }
+    .form-grid{ grid-template-columns:1fr; }
+    .foot-grid{ grid-template-columns:1fr; gap:32px; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- ================= NAV ================= -->
+  <header class="nav">
+    <div class="wrap">
+      <a class="nav-mark" href="#top">Al<span>o</span>gna</a>
+      <nav class="nav-links">
+        <a href="#sobre">Sobre</a>
+        <a href="#menu">Menu</a>
+        <a href="#eventos">Eventos</a>
+        <a href="#reservas">Contacto</a>
+      </nav>
+      <a class="nav-cta" href="#reservas">Reservar mesa</a>
+    </div>
+  </header>
+
+  <!-- ================= HERO ================= -->
+  <section class="hero wrap" id="top">
+    <div class="hero-copy">
+      <p class="kicker">Ilha do Cabo, Luanda</p>
+      <h1>Cozinha do Atlântico, temperada ao sul da Europa</h1>
+      <p class="lede">Alogna é uma mesa virada para a baía de Luanda, onde o peixe do dia encontra o azeite, o limão e o tempo lento da cozinha mediterrânica.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#reservas">Reservar mesa</a>
+        <a class="btn btn-ghost" href="#menu">Ver o menu</a>
+      </div>
+    </div>
+    <div class="hero-art" aria-hidden="true">
+      <svg viewBox="0 0 480 480" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="240" cy="240" r="238" fill="#ece5d2"/>
+        <path d="M30 300c40-24 80-24 120 0s80 24 120 0 80-24 120 0 60 18 90 6" stroke="#5c6a3f" stroke-width="3" fill="none" opacity="0.55"/>
+        <path d="M20 340c40-24 80-24 120 0s80 24 120 0 80-24 120 0 60 18 100 8" stroke="#ac5227" stroke-width="3" fill="none" opacity="0.4"/>
+        <path d="M20 380c40-24 80-24 120 0s80 24 120 0 80-24 120 0 60 18 100 8" stroke="#5c6a3f" stroke-width="2.5" fill="none" opacity="0.3"/>
+        <g transform="translate(150,150)">
+          <path d="M0 40C20-10 70-25 120-10c-14 20-14 48 0 72-50 15-100 0-120-22z" fill="none" stroke="#21261d" stroke-width="3"/>
+          <path d="M118-9c26-6 44 4 54 20-16 10-38 10-54-4" fill="none" stroke="#21261d" stroke-width="3"/>
+          <circle cx="18" cy="20" r="4.5" fill="#21261d"/>
+          <path d="M0 40c-16 6-30 4-38-4" fill="none" stroke="#21261d" stroke-width="2.5"/>
+        </g>
+        <g transform="translate(255,265) rotate(18)" opacity="0.85">
+          <ellipse cx="0" cy="0" rx="30" ry="12" fill="none" stroke="#8a4019" stroke-width="2.5"/>
+          <ellipse cx="0" cy="0" rx="16" ry="6" fill="none" stroke="#8a4019" stroke-width="2"/>
+        </g>
+        <g transform="translate(120,235)" opacity="0.8">
+          <path d="M0 0c6-18 2-34-10-46" stroke="#454f2e" stroke-width="3" fill="none" stroke-linecap="round"/>
+          <ellipse cx="-13" cy="-50" rx="9" ry="16" fill="#454f2e" transform="rotate(-25 -13 -50)"/>
+        </g>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ================= INTRO + HOURS ================= -->
+  <section class="band" id="sobre">
+    <div class="wrap intro">
+      <div>
+        <h2>Uma casa aberta sobre a baía</h2>
+        <p>Fundado por uma família de pescadores e cozinheiros, o Alogna nasceu da vontade de servir o melhor do Atlântico angolano com a técnica e a generosidade da cozinha do sul da Europa. Trabalhamos com pescadores da Ilha e produtores locais, e mudamos o menu consoante o que o mar nos traz.</p>
+        <p class="intro-loc">Rua da Marginal, Ilha do Cabo — Luanda</p>
+      </div>
+      <div class="hours">
+        <div class="hours-row">
+          <span class="label">Almoço</span>
+          <span class="time">12:00 – 15:00<small>Terça a domingo</small></span>
+        </div>
+        <div class="hours-row">
+          <span class="label">Jantar</span>
+          <span class="time">19:00 – 23:00<small>Terça a sábado · 19:00–22:00 domingo</small></span>
+        </div>
+        <div class="hours-row">
+          <span class="label">Terraço &amp; Bar</span>
+          <span class="time">12:00 – 00:00<small>Todos os dias</small></span>
+        </div>
+        <div class="hours-row">
+          <span class="label">Contacto</span>
+          <span class="time">+244 923 000 000<small>reservas@alogna.ao</small></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= MENU ================= -->
+  <section class="menu wrap" id="menu">
+    <div class="menu-head">
+      <h2>O menu</h2>
+      <p>Uma seleção da nossa carta de jantar. Preços em Kwanza, sujeitos a variação consoante a época e a pesca do dia.</p>
+    </div>
+
+    <div class="menu-grid">
+
+      <div class="menu-cat">
+        <div class="menu-cat-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#ac5227" stroke-width="1.6"><path d="M4 12c2-4 6-6 8-6s6 2 8 6c-2 4-6 6-8 6s-6-2-8-6z"/><circle cx="15" cy="12" r="1"/></svg>
+          Entradas
+        </div>
+        <div class="dish"><span class="dish-name">Pão da casa e azeite de Benguela<span class="dish-desc">manteiga de azeitona, ervas do jardim</span></span><span class="dish-price">2.500 Kz</span></div>
+        <div class="dish"><span class="dish-name">Burrata da Ilha<span class="dish-desc">tomate coração-de-boi, manjericão, azeite novo</span></span><span class="dish-price">6.500 Kz</span></div>
+        <div class="dish"><span class="dish-name">Camarão tigre grelhado<span class="dish-desc">alho, piri-piri, limão da Huíla</span></span><span class="dish-price">7.800 Kz</span></div>
+        <div class="dish"><span class="dish-name">Ceviche de garoupa*<span class="dish-desc">leite de tigre, batata-doce, coentros</span></span><span class="dish-price">6.200 Kz</span></div>
+        <div class="dish"><span class="dish-name">Mexilhões à Alogna<span class="dish-desc">vinho branco, tomate, coentros</span></span><span class="dish-price">6.900 Kz</span></div>
+      </div>
+
+      <div class="menu-cat">
+        <div class="menu-cat-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#ac5227" stroke-width="1.6"><path d="M5 10h14M5 10a7 7 0 0014 0M9 10V6M12 10V5M15 10V7"/></svg>
+          Sopas &amp; saladas
+        </div>
+        <p class="menu-cat-note">adicionar: frango grelhado 3.200 Kz · camarão 4.500 Kz · atum selado 5.200 Kz</p>
+        <div class="dish"><span class="dish-name">Caldo verde do mar<span class="dish-desc">couve, chouriço, batata nova</span></span><span class="dish-price">4.200 Kz</span></div>
+        <div class="dish"><span class="dish-name">Salada Alogna**<span class="dish-desc">folhas verdes, tomate cereja, amêndoa, vinagrete de limão</span></span><span class="dish-price">4.800 Kz</span></div>
+        <div class="dish"><span class="dish-name">Salada César<span class="dish-desc">alface baby, crostini, parmesão</span></span><span class="dish-price">5.400 Kz</span></div>
+      </div>
+
+      <div class="menu-cat">
+        <div class="menu-cat-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#ac5227" stroke-width="1.6"><path d="M3 12c3-6 9-9 13-7-1 3-1 7 0 10-4 2-10-1-13-3z"/><circle cx="8" cy="11" r="0.8" fill="#ac5227" stroke="none"/></svg>
+          Do mar
+        </div>
+        <div class="dish"><span class="dish-name">Garoupa grelhada na brasa*<span class="dish-desc">puré de inhame, legumes da estação, manteiga de limão</span></span><span class="dish-price">14.500 Kz</span></div>
+        <div class="dish"><span class="dish-name">Camarão tigre à Alogna<span class="dish-desc">arroz de tomate, coentros</span></span><span class="dish-price">16.800 Kz</span></div>
+        <div class="dish"><span class="dish-name">Cataplana de marisco<span class="dish-desc">camarão, lulas, mexilhão, açafrão</span></span><span class="dish-price">22.000 Kz</span></div>
+        <div class="dish"><span class="dish-name">Bacalhau à moda da casa<span class="dish-desc">batata a murro, azeite, alho laminado</span></span><span class="dish-price">15.900 Kz</span></div>
+        <div class="dish"><span class="dish-name">Robalo em crosta de ervas<span class="dish-desc">beurre blanc, legumes da horta</span></span><span class="dish-price">17.200 Kz</span></div>
+      </div>
+
+      <div class="menu-cat">
+        <div class="menu-cat-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#ac5227" stroke-width="1.6"><path d="M12 3c-4 3-6 7-6 10a6 6 0 0012 0c0-3-2-7-6-10z"/></svg>
+          Da terra &amp; acompanhamentos
+        </div>
+        <div class="dish"><span class="dish-name">Costeleta de vitela<span class="dish-desc">jus da casa, legumes grelhados</span></span><span class="dish-price">18.500 Kz</span></div>
+        <div class="dish"><span class="dish-name">Frango do campo grelhado<span class="dish-desc">limão assado, ervas</span></span><span class="dish-price">12.400 Kz</span></div>
+        <div class="dish"><span class="dish-name">Filé de novilho<span class="dish-desc">puré de batata trufado</span></span><span class="dish-price">21.000 Kz</span></div>
+        <div class="dish"><span class="dish-name">Batata a murro<span class="dish-desc">azeite, flor de sal</span></span><span class="dish-price">2.800 Kz</span></div>
+        <div class="dish"><span class="dish-name">Arroz de coco</span><span class="dish-price">2.400 Kz</span></div>
+      </div>
+
+    </div>
+
+    <p class="menu-legend">*O consumo de peixe cru ou pouco cozinhado pode aumentar o risco de doenças de origem alimentar. **Contém frutos secos.</p>
+  </section>
+
+  <!-- ================= SIGNATURE (illustrated, no stock photos) ================= -->
+  <section class="signature">
+    <div class="wrap">
+      <div class="signature-head">
+        <h2>As três mesas de sempre</h2>
+        <p>Os pratos que definem o Alogna desde a primeira noite, ilustrados como no caderno original do chef.</p>
+      </div>
+      <div class="sig-grid">
+        <div class="sig-card">
+          <svg viewBox="0 0 60 60" fill="none" stroke="#f3efe2" stroke-width="1.6"><path d="M10 30c5-10 15-15 20-15s15 5 20 15c-5 10-15 15-20 15s-15-5-20-15z"/><circle cx="37" cy="30" r="1.6" fill="#f3efe2" stroke="none"/></svg>
+          <h3>Garoupa grelhada na brasa</h3>
+          <p>Puré de inhame, legumes da estação e manteiga de limão — o prato que abre o menu desde 2019.</p>
+        </div>
+        <div class="sig-card">
+          <svg viewBox="0 0 60 60" fill="none" stroke="#f3efe2" stroke-width="1.6"><ellipse cx="30" cy="32" rx="20" ry="9" /><ellipse cx="30" cy="32" rx="11" ry="4.5" /></svg>
+          <h3>Cataplana de marisco</h3>
+          <p>Camarão, lula e mexilhão em caldo de açafrão, servida à mesa na cataplana de cobre.</p>
+        </div>
+        <div class="sig-card">
+          <svg viewBox="0 0 60 60" fill="none" stroke="#f3efe2" stroke-width="1.6"><path d="M30 12v20M22 20c0 8 4 12 8 12s8-4 8-12" /><path d="M30 44v4" /></svg>
+          <h3>Vinhos do Atlântico</h3>
+          <p>Uma carta curta de brancos frescos e tintos leves, escolhidos para acompanhar peixe grelhado.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PRIVATE DINING ================= -->
+  <section class="occasion" id="eventos">
+    <div class="wrap">
+      <div>
+        <h2>Ocasiões especiais junto à água</h2>
+        <p>Do aniversário íntimo ao jantar de empresa, reservamos o terraço ou a sala inteira para grupos que querem uma noite só deles, com menu desenhado à medida.</p>
+        <a class="btn btn-ghost" href="mailto:eventos@alogna.ao">Pedir proposta</a>
+      </div>
+      <div class="occasion-figure">
+        <ul>
+          <li><span><b>Terraço privado</b>até 24 pessoas</span></li>
+          <li><span><b>Sala inteira</b>até 70 pessoas</span></li>
+          <li><span><b>Menu à medida</b>a partir de 3 tempos</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= RESERVAS ================= -->
+  <section class="reserve" id="reservas">
+    <div class="wrap">
+      <div>
+        <h2>Reservar uma mesa</h2>
+        <p>Preencha os seus dados e a nossa equipa confirma a reserva por telefone ou e-mail em até 24 horas.</p>
+        <div class="reserve-contact">
+          <div><span class="k">Morada</span>Rua da Marginal, Ilha do Cabo, Luanda</div>
+          <div><span class="k">Telefone</span>+244 923 000 000</div>
+          <div><span class="k">E-mail</span>reservas@alogna.ao</div>
+        </div>
+      </div>
+      <form class="form-grid" onsubmit="return false;">
+        <div class="field"><label for="nome">Nome</label><input id="nome" type="text" required></div>
+        <div class="field"><label for="tel">Telefone</label><input id="tel" type="tel" required></div>
+        <div class="field"><label for="data">Data</label><input id="data" type="date" required></div>
+        <div class="field"><label for="pessoas">Pessoas</label><select id="pessoas"><option>2</option><option>3</option><option>4</option><option>5</option><option>6+</option></select></div>
+        <div class="field full"><label for="msg">Pedido especial (opcional)</label><textarea id="msg" placeholder="Alergias, ocasião, lugar preferido no terraço…"></textarea></div>
+        <div class="field full form-submit"><button class="btn btn-primary" type="submit" style="border:none;font-family:inherit;">Confirmar pedido de reserva</button></div>
+      </form>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer>
+    <div class="wrap">
+      <div class="foot-grid">
+        <div>
+          <div class="foot-mark">Alogna</div>
+          <p>Restaurante junto à baía de Luanda, com cozinha aberta ao Atlântico e mesa posta ao ritmo do mar.</p>
+        </div>
+        <div class="foot-col">
+          <h4>Visite-nos</h4>
+          <ul>
+            <li><a href="#sobre">Sobre o Alogna</a></li>
+            <li><a href="#menu">Menu</a></li>
+            <li><a href="#eventos">Eventos privados</a></li>
+          </ul>
+        </div>
+        <div class="foot-col">
+          <h4>Siga-nos</h4>
+          <ul>
+            <li><a href="#">Instagram</a></li>
+            <li><a href="#">Facebook</a></li>
+            <li><a href="mailto:reservas@alogna.ao">reservas@alogna.ao</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="foot-bottom">
+        <span>© 2026 Alogna Restaurante. Todos os direitos reservados.</span>
+        <span>Ilha do Cabo, Luanda, Angola</span>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
